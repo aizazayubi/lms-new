@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
+import { CoursesModule } from './courses/courses.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { User } from './users/entities/user.entity';
       synchronize: true, // auto-creates tables in dev
     }),
     UsersModule,
+    CoursesModule,
   ],
 })
 export class AppModule {}
