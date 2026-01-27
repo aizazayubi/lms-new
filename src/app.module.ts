@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
 import { CoursesModule } from './courses/courses.module';
+import { Course } from './courses/entities/course.entity';
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import { CoursesModule } from './courses/courses.module';
       username: 'postgres', // your DB username
       password: 'admin', // your DB password
       database: 'lms_db',
-      entities: [User],
+      entities: [User, Course],
       synchronize: true, // auto-creates tables in dev
     }),
     UsersModule,
