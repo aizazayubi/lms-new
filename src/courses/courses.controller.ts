@@ -8,15 +8,16 @@ import {
   Delete,
 } from '@nestjs/common';
 import { CoursesService } from './courses.service';
-import { Course } from './entities/course.entity';
+import { CreateCourseDto } from './dto/create_course.dto';
+import { UpdateCourseDto } from './dto/update_course.dto';
 
-@Controller('courses') // ✅ this defines the route
+@Controller('courses')
 export class CoursesController {
   constructor(private readonly coursesService: CoursesService) {}
 
   @Post()
-  create(@Body() course: Partial<Course>) {
-    return this.coursesService.create(course);
+  create(@Body() dto: CreateCourseDto) {
+    return this.coursesService.create(dto);
   }
 
   @Get()
@@ -25,17 +26,17 @@ export class CoursesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number) {
-    return this.coursesService.findOne(id);
+  findOne(@Param('id') id: string) {
+    return this.coursesService.findOne(+id);
   }
 
   @Put(':id')
-  update(@Param('id') id: number, @Body() course: Partial<Course>) {
-    return this.coursesService.update(id, course);
+  update(@Param('id') id: string, @Body() dto: UpdateCourseDto) {
+    return this.coursesService.update(+id, dto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: number) {
-    return this.coursesService.remove(id);
+  remove(@Param('id') id: string) {
+    return this.coursesService.remove(+id);
   }
 }

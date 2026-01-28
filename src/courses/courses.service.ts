@@ -2,17 +2,19 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Course } from './entities/course.entity';
+import { CreateCourseDto } from './dto/create_course.dto';
+import { UpdateCourseDto } from './dto/update_course.dto';
 
 @Injectable()
 export class CoursesService {
   constructor(
     @InjectRepository(Course)
-    private coursesRepository: Repository<Course>,
+    private readonly coursesRepository: Repository<Course>,
   ) {}
 
-  create(course: Partial<Course>) {
-    const newCourse = this.coursesRepository.create(course);
-    return this.coursesRepository.save(newCourse);
+  create(dto: CreateCourseDto) {
+    const course = this.coursesRepository.create(dto);
+    return this.coursesRepository.save(course);
   }
 
   findAll() {
@@ -23,8 +25,8 @@ export class CoursesService {
     return this.coursesRepository.findOne({ where: { id } });
   }
 
-  async update(id: number, course: Partial<Course>) {
-    await this.coursesRepository.update(id, course);
+  async update(id: number, dto: UpdateCourseDto) {
+    await this.coursesRepository.update(id, dto);
     return this.findOne(id);
   }
 
