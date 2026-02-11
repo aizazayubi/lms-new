@@ -7,4 +7,8 @@ export class User {
 
   @Column()
   name: string;
+  @Column()
+  password: string;
+  @Column({ default: 'student' })
+  role: string;
 }
